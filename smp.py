@@ -76,7 +76,20 @@ def randomPreferences(n):
 
 if __name__=='__main__':
 
-    n = 5
-    boys, girls = randomPreferences(n)
+    n = 4
+    a,b,c,d = 'abcd'
+    boys = {
+        1: [c, d, b, a],
+        2: [d, a, c, b],
+        3: [d, c, b, a],
+        4: [c, d, b, a],
+    }
+    girls = {
+        a: [2, 3, 4, 1],
+        b: [3, 4, 1, 2],
+        c: [2, 3, 1, 4],
+        d: [4, 1, 2, 3],
+    }
+
     stableMarriage(n, boys, girls, verbose=True)
 
