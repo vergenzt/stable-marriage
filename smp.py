@@ -1,18 +1,21 @@
 #!/bin/python
 
-def stableMarriage(n, boys, girls, verbose=False):
+def stableMarriage(boys, girls, verbose=False):
     """
     Run the stable marriage algorithm for the given set of preferences.
 
-    boys is a dictionary, where each key is the name of a boy, and its value
-    is a list of girls' names, in order of preference.  girls is structured
-    in the same way.
+    Args:
+      boys: a dict from boy names their preference lists (most preferred to least)
+      girls: a dict from girl names to their preference lists (most preferred to least)
+      verbose: when True, print information on each step
 
     Returns a set of tuples (boy, girl), each representing a couple in the
     resulting stable marriage.
     """
-    from collections import defaultdict
+    if len(boys) != len(girls):
+        raise ValueError()
 
+    from collections import defaultdict
     proposals = defaultdict(set)
     choices = dict()
 
