@@ -59,7 +59,7 @@ def randomPreferences(n):
 
     Due to the naming of the girls, n must be <= 26.
     """
-    if n > 26: raise InvalidArgumentException()
+    if n > 26: raise ValueError()
 
     import string
     import random
