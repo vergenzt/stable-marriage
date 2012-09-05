@@ -48,27 +48,34 @@ def get_stable_marriage(n, boys, girls, verbose=False):
     return choices.items()
 
 
+def get_random_preferences(n):
+    """
+    Gets a random ordering of preferences for each boy and girl in an instance
+    of the stable marriage problem for given n.
+
+    Due to the naming of the girls, n must be <= 26.
+    """
+    if n > 26: raise InvalidArgumentException()
+
+    import string
+    import random
+
+    b, g = {}, {}
+    bnames = [i+1 for i in range(n)]     # use numbers for the boys
+    gnames = list(string.lowercase[:n])  # use letters for the girls
+
+    for boy in bnames:
+        random.shuffle(gnames)
+        b[boy] = gnames[:]
+    for girl in gnames:
+        random.shuffle(bnames)
+        g[girl] = bnames[:]
+
+    return b,g
+
 if __name__=='__main__':
 
-    # assign letter variables for the girls
-    a,b,c,d,e,f = 'abcdef'
-
-    boys = {
-      1: [a,b,c,d,e,f],
-      2: [b,c,d,e,a,f],
-      3: [c,d,e,a,b,f],
-      4: [d,e,a,b,c,f],
-      5: [e,a,b,c,d,f],
-      6: [a,b,c,d,e,f],
-    }
-    girls = {
-      a: [2,1,6,5,4,3],
-      b: [3,2,1,6,5,4],
-      c: [4,3,2,1,5,6],
-      d: [5,4,3,2,1,6],
-      e: [6,5,4,3,2,1],
-      f: [1,2,3,4,5,6],
-    }
-
-    get_stable_marriage(6, boys, girls, verbose=True)
+    n = 5
+    boys, girls = get_random_preferences(n)
+    get_stable_marriage(n, boys, girls, verbose=True)
 
