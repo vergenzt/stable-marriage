@@ -1,6 +1,6 @@
 #!/bin/python
 
-def get_stable_marriage(n, boys, girls, verbose=False):
+def stableMarriage(n, boys, girls, verbose=False):
     """
     Run the stable marriage algorithm for the given set of preferences.
 
@@ -49,7 +49,7 @@ def get_stable_marriage(n, boys, girls, verbose=False):
     return choices.items()
 
 
-def get_random_preferences(n):
+def randomPreferences(n):
     """
     Gets a random ordering of preferences for each boy and girl in an instance
     of the stable marriage problem for given n.
@@ -77,6 +77,6 @@ def get_random_preferences(n):
 if __name__=='__main__':
 
     n = 5
-    boys, girls = get_random_preferences(n)
-    get_stable_marriage(n, boys, girls, verbose=True)
+    boys, girls = randomPreferences(n)
+    stableMarriage(n, boys, girls, verbose=True)
 
