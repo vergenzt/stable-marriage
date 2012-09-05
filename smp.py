@@ -1,5 +1,4 @@
 #!/bin/python
-from collections import defaultdict
 
 def get_stable_marriage(n, boys, girls, verbose=False):
     """
@@ -12,6 +11,8 @@ def get_stable_marriage(n, boys, girls, verbose=False):
     Returns a set of tuples (boy, girl), each representing a couple in the
     resulting stable marriage.
     """
+    from collections import defaultdict
+
     proposals = defaultdict(set)
     choices = dict()
 
