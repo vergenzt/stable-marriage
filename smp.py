@@ -126,6 +126,18 @@ def stableMarriage(boys, girls, verbose=False):
     return marriage
 
 
+def isMarriageStable(marriage, boys, girls):
+    """
+    Returns a boolean for whether this marriage is stable.
+
+    Args:
+      marriage: an iterable of tuples (b,g) of Persons, one tuple for each match
+      boys:     a set of Person objects
+      girls:    a set of Person objects
+    """
+    pass
+
+
 def randomPreferences(n):
     """
     Gets a random ordering of preferences for each boy and girl in an instance
