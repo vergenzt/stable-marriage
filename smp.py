@@ -70,8 +70,8 @@ def stableMarriage(boys, girls, verbose=False):
     Run the stable marriage algorithm for the given set of preferences.
 
     Args:
-      boys: a dict from boy names their preference lists (most preferred to least)
-      girls: a dict from girl names to their preference lists (most preferred to least)
+      boys: a set of Person objects
+      girls: a set of Person objects
       verbose: when True, print information on each step
 
     Returns a set of tuples (boy, girl), each representing a couple in the
@@ -80,34 +80,20 @@ def stableMarriage(boys, girls, verbose=False):
     if len(boys) != len(girls):
         raise ValueError()
 
-    from collections import defaultdict
-    proposals = defaultdict(set)
-    choices = dict()
-
     day = 0
 
     while len(choices) < n:
         day += 1
-        if verbose: print "Day ",day
 
         # morning
-        proposals.clear()
-        for boy, prefs in boys.items():
-            proposals[prefs[0]].add(boy)
+        for boy in boys:
+            best = boy.prefs[0]
+            boy.propose(best))
 
-        if verbose: print "  Proposals:",dict(proposals)
-        
-        # afternoon
-        for girl, suitors in proposals.items():
-            choices[girl] = min(suitors, key = girls[girl].index)
-            suitors.remove(choices[girl])
-
-        if verbose: print "  Choices:",choices
-
-        # evening
-        for _,suitors in proposals.items():
-            for boy in suitors:
-                boys[boy].pop(0)
+        # afternoon and evening
+        for girl in girls:
+            best = max(girl.proposals, key=girl.preference)
+            map(girl.reject, filter(best.__ne__, girl.proposals))
         
     if verbose:
         print
