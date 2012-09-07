@@ -9,6 +9,7 @@ class Person:
         self.name = name
         self.name_prefs = name_prefs  # preferences by name
         self.prefs = None             # preferences by Person objects
+        self.proposals = set()
 
     def preference(self, other):
         """
@@ -18,6 +19,20 @@ class Person:
         >>> girl = max(girls, key=boy.preference)
         """
         return -1 * self.prefs.index(other)
+
+    def proposeTo(self, other):
+        """
+        Propose marriage to other Person.  Adds self to other's set of proposals.
+        """
+        other.proposals.add(self)
+
+    def reject(self, other):
+        """
+        Reject a proposal from other Person.  Removes other from self's set of
+        proposals, and removes self from other's preference list.
+        """
+        self.proposals.remove(other)
+        other.prefs.remove(self)
 
     @classmethod
     def getPersonSets(boys, girls):
