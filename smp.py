@@ -1,5 +1,55 @@
 #!/bin/python
 
+class Person:
+    """
+    Implements a boy or a girl for the stable marriage problem.
+    """
+
+    def __init__(self, name, name_prefs = None):
+        self.name = name
+        self.name_prefs = name_prefs  # preferences by name
+        self.prefs = None             # preferences by Person objects
+
+    def preference(self, other):
+        """
+        Returns a preference ranking for other, where a higher number means
+        other is more preferred.  In other words, this should work as expected:
+
+        >>> girl = max(girls, key=boy.preference)
+        """
+        return -1 * self.prefs.index(other)
+
+    @classmethod
+    def getPersonSets(boys, girls):
+        """
+        Get a set of Person objects from a dictionary of their preferences.
+
+        Args:
+            boys: a dictionary from the boys's name to his preference list
+            girls: a dictionary from the girl's name to her preference list
+
+        Preference lists should be lists of names (must equal the keys in the
+        other dictionary) in descending order of preference.
+
+        Returns a tuple (boys, girls), where each item is a set of Person objects.
+        """
+        from itertools import chain
+
+        # construct a name table
+        names = dict()
+        for name, prefs in chain(boys.items(), girls.items()):
+            names[name] = Person(name, prefs)
+
+        # link up the preferences for each Person
+        for _, person in names:
+            person.prefs = [names[name] for name in person.name_prefs]
+
+        boys = set(names[name] for name in boys)
+        girls = set(names[name] for name in girls)
+
+        return (boys, girls)
+
+
 def stableMarriage(boys, girls, verbose=False):
     """
     Run the stable marriage algorithm for the given set of preferences.
