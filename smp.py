@@ -133,7 +133,10 @@ def isMarriageStable(marriage):
             g.preference(b) > g.preference(g.choice)
         )
 
-    return not any(isRogue(b,g) for b,g in marriage)
+    for b,gp in marriage:
+        if any(isRogue(b,g) for g in b.prefs):
+            return False
+    return True
 
 
 def randomPreferences(n):
