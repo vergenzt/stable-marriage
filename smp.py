@@ -43,6 +43,11 @@ class Person:
         self.proposals.remove(other)
         self.choice = other
 
+    def __str__(self):
+        return self.name
+    def __repr__(self):
+        return repr(self.name)
+
     @staticmethod
     def getPersonSets(boys, girls):
         """
