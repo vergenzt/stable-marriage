@@ -163,6 +163,24 @@ def randomPreferences(n):
 
     return b,g
 
+
+from itertools import permutations
+
+def validMarriages(boy_set, girl_set):
+    """
+    A generator to get all valid marriages for the given set of boys and girls.
+    Note that this does not necessarily return *stable* marriages, only valid
+    marriages.
+
+    Args:
+        boy_set: a set of Person objects
+        girl_set: a set of Person objects
+    """
+    boys = list(boy_set)
+    for girls in permutations(girl_set):
+        yield zip(boys, girls)
+
+
 if __name__=='__main__':
 
     n = 4
