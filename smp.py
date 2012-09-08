@@ -9,6 +9,7 @@ class Person:
         self.name = name
         self.name_prefs = name_prefs  # preferences by name
         self.prefs = None             # preferences by Person objects
+        self._prefs = None
         self.proposals = set()
         self.choice = None
 
@@ -19,7 +20,7 @@ class Person:
 
         >>> girl = max(girls, key=boy.preference)
         """
-        return -1 * self.prefs.index(other)
+        return -1 * self._prefs.index(other)
 
     def proposeTo(self, other):
         """
@@ -33,7 +34,7 @@ class Person:
         proposals, and removes self from other's preference list.
         """
         self.proposals.remove(other)
-        other.prefs.remove(self)
+        other._prefs.remove(self)
 
     def choose(self, other):
         """
@@ -72,6 +73,7 @@ class Person:
         # link up the preferences for each Person
         for _, person in names.items():
             person.prefs = [names[name] for name in person.name_prefs]
+            person._prefs = person.prefs.copy()
 
         boys = set(names[name] for name in boys)
         girls = set(names[name] for name in girls)
