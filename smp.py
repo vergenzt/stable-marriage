@@ -176,6 +176,9 @@ def validMarriages(boy_set, girl_set):
     """
     boys = list(boy_set)
     for girls in permutations(girl_set):
+        for boy,girl in zip(boys,girls):
+            boy.choice = girl
+            girl.choice = boy
         yield zip(boys, girls)
 
 
