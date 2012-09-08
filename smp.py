@@ -118,14 +118,12 @@ def stableMarriage(boys, girls, verbose=False):
     return marriage
 
 
-def isMarriageStable(marriage, boys, girls):
+def isMarriageStable(marriage):
     """
     Returns a boolean for whether this marriage is stable.
 
     Args:
       marriage: an iterable of tuples (b,g) of Persons, one tuple for each match
-      boys:     a set of Person objects
-      girls:    a set of Person objects
     """
     def isRogue(b,g):
         if b.choice == g and g.choice == b:
