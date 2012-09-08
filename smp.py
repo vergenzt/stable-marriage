@@ -127,7 +127,15 @@ def isMarriageStable(marriage, boys, girls):
       boys:     a set of Person objects
       girls:    a set of Person objects
     """
-    pass
+    def isRogue(b,g):
+        if b.choice == g and g.choice == b:
+            return False
+        return (
+            b.preference(g) > b.preference(b.choice) and
+            g.preference(b) > g.preference(g.choice)
+        )
+
+    return not any(isRogue(b,g) for b,g in marriage)
 
 
 def randomPreferences(n):
