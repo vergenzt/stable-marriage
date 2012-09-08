@@ -10,6 +10,7 @@ class Person:
         self.name_prefs = name_prefs  # preferences by name
         self.prefs = None             # preferences by Person objects
         self.proposals = set()
+        self.choice = None
 
     def preference(self, other):
         """
@@ -33,6 +34,14 @@ class Person:
         """
         self.proposals.remove(other)
         other.prefs.remove(self)
+
+    def choose(self, other):
+        """
+        Say 'maybe' to other Person.  Removes other from self's set of proposals,
+        but does not remove self from other's preference list.
+        """
+        self.proposals.remove(other)
+        self.choice = other
 
     @classmethod
     def getPersonSets(boys, girls):
@@ -82,7 +91,7 @@ def stableMarriage(boys, girls, verbose=False):
 
     day = 0
 
-    while len(choices) < n:
+    while any(girl.choice == None for girl in girls):
         day += 1
 
         # morning
@@ -92,15 +101,19 @@ def stableMarriage(boys, girls, verbose=False):
 
         # afternoon and evening
         for girl in girls:
-            best = max(girl.proposals, key=girl.preference)
-            map(girl.reject, filter(best.__ne__, girl.proposals))
-        
+            if len(girl.proposals) != 0:
+                best = max(girl.proposals, key=girl.preference)
+                girl.choose(best)
+                map(girl.reject, girl.proposals.copy())
+
+    marriage = set((girl.choice,girl) for girl in girls)
+
     if verbose:
         print
-        print "Stable marriage:", choices.items()
+        print "Stable marriage:", marriage
         print "Solution found in", day, "days"
 
-    return choices.items()
+    return marriage
 
 
 def randomPreferences(n):
@@ -145,5 +158,7 @@ if __name__=='__main__':
         d: [4, 1, 2, 3],
     }
 
-    stableMarriage(n, boys, girls, verbose=True)
+    boys, girls = Person.getPersonSets(boys, girls)
+
+    stableMarriage(boys, girls, verbose=True)
 
