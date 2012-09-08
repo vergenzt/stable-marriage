@@ -28,21 +28,16 @@ class Person:
         """
         other.proposals.add(self)
 
-    def reject(self, other):
-        """
-        Reject a proposal from other Person.  Removes other from self's set of
-        proposals, and removes self from other's preference list.
-        """
-        self.proposals.remove(other)
-        other._prefs.remove(self)
-
     def choose(self, other):
         """
-        Say 'maybe' to other Person.  Removes other from self's set of proposals,
-        but does not remove self from other's preference list.
+        Say 'maybe' to other Person.  Say 'no' to everyone else. Clears the set
+        of proposals, and removes self from the prefs of everyone that was rejected.
         """
         self.proposals.remove(other)
         self.choice = other
+        for other in self.proposals:
+            other._prefs.remove(self)
+        self.proposals.clear()
 
     def __str__(self):
         return self.name
@@ -111,7 +106,6 @@ def stableMarriage(boys, girls, verbose=False):
             if len(girl.proposals) != 0:
                 best = max(girl.proposals, key=girl.preference)
                 girl.choose(best)
-                map(girl.reject, girl.proposals.copy())
 
     for girl in girls:
         boy.choice = girl
