@@ -41,7 +41,7 @@ class Person:
         self.proposals.clear()
 
     def __str__(self):
-        return self.name
+        return str(self.name) + ': ' + repr(self.prefs) + ','
     def __repr__(self):
         return str(self.name)
 
