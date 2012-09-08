@@ -99,7 +99,7 @@ def stableMarriage(boys, girls, verbose=False):
 
         # morning
         for boy in boys:
-            best = boy.prefs[0]
+            best = boy._prefs[0]
             boy.proposeTo(best)
 
         # afternoon and evening
