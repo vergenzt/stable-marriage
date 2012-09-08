@@ -113,6 +113,9 @@ def stableMarriage(boys, girls, verbose=False):
                 girl.choose(best)
                 map(girl.reject, girl.proposals.copy())
 
+    for girl in girls:
+        boy.choice = girl
+
     marriage = set((girl.choice,girl) for girl in girls)
 
     if verbose:
