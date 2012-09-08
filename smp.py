@@ -28,13 +28,14 @@ class Person:
         """
         other.proposals.add(self)
 
-    def choose(self, other):
+    def choose(self, choice):
         """
         Say 'maybe' to other Person.  Say 'no' to everyone else. Clears the set
         of proposals, and removes self from the prefs of everyone that was rejected.
         """
-        self.proposals.remove(other)
-        self.choice = other
+        self.choice = choice
+        choice.choice = self
+        self.proposals.remove(choice)
         for other in self.proposals:
             other._prefs.remove(self)
         self.proposals.clear()
@@ -106,9 +107,6 @@ def stableMarriage(boys, girls, verbose=False):
             if len(girl.proposals) != 0:
                 best = max(girl.proposals, key=girl.preference)
                 girl.choose(best)
-
-    for girl in girls:
-        boy.choice = girl
 
     marriage = set((girl.choice,girl) for girl in girls)
 
