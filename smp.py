@@ -43,7 +43,7 @@ class Person:
         self.proposals.remove(other)
         self.choice = other
 
-    @classmethod
+    @staticmethod
     def getPersonSets(boys, girls):
         """
         Get a set of Person objects from a dictionary of their preferences.
@@ -65,7 +65,7 @@ class Person:
             names[name] = Person(name, prefs)
 
         # link up the preferences for each Person
-        for _, person in names:
+        for _, person in names.items():
             person.prefs = [names[name] for name in person.name_prefs]
 
         boys = set(names[name] for name in boys)
@@ -97,7 +97,7 @@ def stableMarriage(boys, girls, verbose=False):
         # morning
         for boy in boys:
             best = boy.prefs[0]
-            boy.propose(best))
+            boy.proposeTo(best)
 
         # afternoon and evening
         for girl in girls:
