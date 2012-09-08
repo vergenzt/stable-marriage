@@ -73,7 +73,7 @@ class Person:
         # link up the preferences for each Person
         for _, person in names.items():
             person.prefs = [names[name] for name in person.name_prefs]
-            person._prefs = person.prefs.copy()
+            person._prefs = person.prefs[:]
 
         boys = set(names[name] for name in boys)
         girls = set(names[name] for name in girls)
