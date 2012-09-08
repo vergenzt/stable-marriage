@@ -31,7 +31,8 @@ class Person:
     def choose(self, choice):
         """
         Say 'maybe' to other Person.  Say 'no' to everyone else. Clears the set
-        of proposals, and removes self from the prefs of everyone that was rejected.
+        of proposals, and removes self from the available options for everyone
+        that was rejected.
         """
         self.choice = choice
         choice.choice = self
@@ -144,7 +145,8 @@ def randomPreferences(n):
     Gets a random ordering of preferences for each boy and girl in an instance
     of the stable marriage problem for given n.
 
-    Due to the naming of the girls, n must be <= 26.
+    Args:
+      n: the number of boys and girls. Must be <= 26.
     """
     if n > 26: raise ValueError()
 
