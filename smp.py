@@ -188,21 +188,13 @@ def validMarriages(boy_set, girl_set):
 if __name__=='__main__':
 
     a,b,c,d = 'abcd'
-    boys, girls = Person.getPersonSets(
-        boys = {
-            1: [c, d, b, a],
-            2: [d, a, c, b],
-            3: [d, c, b, a],
-            4: [c, d, b, a],
-        },
-        girls = {
-            a: [2, 3, 4, 1],
-            b: [3, 4, 1, 2],
-            c: [2, 3, 1, 4],
-            d: [4, 1, 2, 3],
-        }
-    )
+    boys, girls = randomPreferences(4)
+    print 'boys =', boys
+    print 'girls =', girls
+    boys, girls = Person.getPersonSets(boys, girls)
 
+    print
+    print 'Stable marriages:'
     for marriage in filter(isMarriageStable, validMarriages(boys,girls)):
         print marriage
 
